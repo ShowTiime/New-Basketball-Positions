@@ -21,7 +21,7 @@ public class Main {
 		for (int i = 0; i < clusters.getClusters(0).clusterSize(); i++) {
 			System.out.println(clusters.getClusters(0).getObjectsIndexes(i));
 		}
-
+		
 	}
 
 }

@@ -42,17 +42,47 @@ public class KMedoids {
 				String[] features = result.split(separator);
 				
 				try {
+					// get the player's name
 					player.setName(features[1]);
+					// get the player's position
+					String auxPosition = features[2];
+					if (auxPosition.equals("PG")) {
+						player.setPosition(1);
+					} else if (auxPosition.equals("SG")) {
+						player.setPosition(2);
+					} else if (auxPosition.equals("SF")) {
+						player.setPosition(3);
+					} else if (auxPosition.equals("PF")) {
+						player.setPosition(4);
+					} else {
+						player.setPosition(5);
+					}
+					//get the player's gamesStarted
+					player.setGamesStarted(Integer.parseInt(features[6]));
+					//get the player's minutesPlayed
+					player.setMinutesPlayed(Double.parseDouble(features[7]));
+					//get the player's FieldGoalPercentage
+					player.setFGPctg(Double.parseDouble("0".concat(features[10])));
+					//get the player's 3PTFieldGoalPercentage
+					player.setThreeptFGPctg(Double.parseDouble("0".concat(features[13])));
+					//get the player's points
 					player.setPoints(Double.parseDouble(features[29]));
-					player.setRebounds(Double.parseDouble(features[23]));
+					//get the player's ofensiveRebounds
+					player.setOffRebounds(Double.parseDouble(features[21]));
+					//get the player's defensiveRebounds
+					player.setDefRebounds(Double.parseDouble(features[22]));
+					//get the player's assists
 					player.setAssists(Double.parseDouble(features[24]));
+					//get the player's blocks
 					player.setBlocks(Double.parseDouble(features[26]));
+					//get the player's steals
 					player.setSteals(Double.parseDouble(features[25]));
+					
 				} catch (NumberFormatException e) {
 					System.out.println("NumberFormatException!!!\n" + e.getMessage());
 				}
 				KMedoids.database.add(player);
-				
+				System.out.println(player);
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -69,8 +99,15 @@ public class KMedoids {
 			}
 		}
 		
+		normalizeDatabase();
+		
 	}
 	
+	private void normalizeDatabase() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public void fit() {
 		
 		this.centroids = this.generateCentroids();
@@ -190,7 +227,6 @@ public class KMedoids {
 
 	private double euclideanDistance(Player player, Player centroid) {
 		return Math.sqrt((Math.pow((player.getPoints() - centroid.getPoints()), 2) + 
-				          Math.pow((player.getRebounds() - centroid.getRebounds()), 2) + 
 				          Math.pow((player.getAssists() - centroid.getAssists()), 2) + 
 				          Math.pow(player.getBlocks() - centroid.getBlocks(), 2) + 
 				          Math.pow(player.getSteals() - centroid.getSteals(), 2)));
