@@ -47,18 +47,18 @@ public class KMedoids {
 					// get the player's position
 					String auxPosition = features[2];
 					if (auxPosition.equals("PG")) {
-						player.setPosition(1);
+						player.setPosition(1.0);
 					} else if (auxPosition.equals("SG")) {
-						player.setPosition(2);
+						player.setPosition(2.0);
 					} else if (auxPosition.equals("SF")) {
-						player.setPosition(3);
+						player.setPosition(3.0);
 					} else if (auxPosition.equals("PF")) {
-						player.setPosition(4);
+						player.setPosition(4.0);
 					} else {
-						player.setPosition(5);
+						player.setPosition(5.0);
 					}
 					//get the player's gamesStarted
-					player.setGamesStarted(Integer.parseInt(features[6]));
+					player.setGamesStarted(Double.parseDouble(features[6]));
 					//get the player's minutesPlayed
 					player.setMinutesPlayed(Double.parseDouble(features[7]));
 					//get the player's FieldGoalPercentage
@@ -82,7 +82,6 @@ public class KMedoids {
 					System.out.println("NumberFormatException!!!\n" + e.getMessage());
 				}
 				KMedoids.database.add(player);
-				System.out.println(player);
 			}
 			
 		} catch (FileNotFoundException e) {
@@ -112,12 +111,10 @@ public class KMedoids {
 		
 		this.centroids = this.generateCentroids();
 		this.similarityMatrix = this.createSimilarityMatrix();
-		int itera = 1;
 		
 		boolean centroidsChanged = true;
 		while (centroidsChanged) {
 			centroidsChanged = false;
-			System.out.println("Iteração: " + itera);
 			
 			// Allocating each object to a determine cluster.
 			for (int i = 0; i < KMedoids.database.size(); i++) {
@@ -162,10 +159,7 @@ public class KMedoids {
 				for (int i = 0; i < this.clusters.length; i++) {
 					this.clusters[i].clear();
 				}
-			}
-			
-			itera++;
-						
+			}			
 		}
 		
 	}
@@ -228,8 +222,15 @@ public class KMedoids {
 	private double euclideanDistance(Player player, Player centroid) {
 		return Math.sqrt((Math.pow((player.getPoints() - centroid.getPoints()), 2) + 
 				          Math.pow((player.getAssists() - centroid.getAssists()), 2) + 
-				          Math.pow(player.getBlocks() - centroid.getBlocks(), 2) + 
-				          Math.pow(player.getSteals() - centroid.getSteals(), 2)));
+				          Math.pow((player.getBlocks() - centroid.getBlocks()), 2) + 
+				          Math.pow((player.getSteals() - centroid.getSteals()), 2) + 
+				          Math.pow((player.getPosition() - centroid.getPosition()), 2) + 
+				          Math.pow((player.getGamesStarted() - centroid.getGamesStarted()), 2) + 
+				          Math.pow((player.getMinutesPlayed() - centroid.getMinutesPlayed()), 2) + 
+				          Math.pow((player.getFGPctg() - centroid.getFGPctg()), 2) + 
+				          Math.pow((player.getThreeptFGPctg() - centroid.getThreeptFGPctg()), 2) + 
+				          Math.pow((player.getOffRebounds() - centroid.getOffRebounds()), 2) + 
+				          Math.pow((player.getDefRebounds() - centroid.getDefRebounds()), 2)));
 	}
 
 	private int[] generateCentroids() {

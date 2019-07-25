@@ -3,8 +3,8 @@ package br.home.project.java.newbbpos;
 public class Player {
 	
 	private String name;			// [1]
-	private int position;			// [2]
-	private int gamesStarted;		// [6]
+	private double position;		// [2]
+	private double gamesStarted;	// [6]
 	private double minutesPlayed;	// [7]
 	private double FGPctg;			// [10]
 	private double threeptFGPctg;	// [13]
@@ -59,19 +59,19 @@ public class Player {
 		this.steals = steals;
 	}
 
-	public int getPosition() {
+	public double getPosition() {
 		return position;
 	}
 
-	public void setPosition(int position) {
+	public void setPosition(double position) {
 		this.position = position;
 	}
 
-	public int getGamesStarted() {
+	public double getGamesStarted() {
 		return gamesStarted;
 	}
 
-	public void setGamesStarted(int gamesStarted) {
+	public void setGamesStarted(double gamesStarted) {
 		this.gamesStarted = gamesStarted;
 	}
 
