@@ -1,8 +1,10 @@
 package br.home.project.java.newbbpos;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -61,10 +63,10 @@ public class KMedoids {
 					player.setGamesStarted(Double.parseDouble(features[6]));
 					//get the player's minutesPlayed
 					player.setMinutesPlayed(Double.parseDouble(features[7]));
-					//get the player's FieldGoalPercentage
-					player.setFGPctg(Double.parseDouble("0".concat(features[10])));
+					//get the player's 2PTFieldGoalPercentage
+					player.setTwoPointFG(Double.parseDouble("0".concat(features[16])));
 					//get the player's 3PTFieldGoalPercentage
-					player.setThreeptFGPctg(Double.parseDouble("0".concat(features[13])));
+					player.setThreePointFG(Double.parseDouble("0".concat(features[13])));
 					//get the player's points
 					player.setPoints(Double.parseDouble(features[29]));
 					//get the player's ofensiveRebounds
@@ -164,8 +166,27 @@ public class KMedoids {
 		
 	}
 	
-	public void generateReport() {
-		// TODO Auto-generated method stub
+	public void generateReport(String filename) {
+		
+		String path = "reports\\".concat(filename);		
+		BufferedWriter buffwriter;
+		try {
+			buffwriter = new BufferedWriter(new FileWriter(path));
+			String content = "";
+			
+			for (int i = 0; i < this.numberOfClusters; i++) {
+				content += "CLUSTER " + (i + 1) + "\n\n";
+				for (int j = 0; j < this.clusters[i].clusterSize(); j++) {
+					content += KMedoids.getDatabase(this.clusters[i].getObjectsIndexes(j)).getName() + "\n";
+				}
+				content += "\n";
+			}
+			
+			buffwriter.append(content);
+			buffwriter.close();
+		} catch (IOException e) {
+			System.out.println("IOException!!!\n" + e.getMessage());
+		}		
 		
 	}
 
@@ -227,8 +248,8 @@ public class KMedoids {
 				          Math.pow((player.getPosition() - centroid.getPosition()), 2) + 
 				          Math.pow((player.getGamesStarted() - centroid.getGamesStarted()), 2) + 
 				          Math.pow((player.getMinutesPlayed() - centroid.getMinutesPlayed()), 2) + 
-				          Math.pow((player.getFGPctg() - centroid.getFGPctg()), 2) + 
-				          Math.pow((player.getThreeptFGPctg() - centroid.getThreeptFGPctg()), 2) + 
+				          Math.pow((player.getTwoPointFG() - centroid.getTwoPointFG()), 2) + 
+				          Math.pow((player.getThreePointFG() - centroid.getThreePointFG()), 2) + 
 				          Math.pow((player.getOffRebounds() - centroid.getOffRebounds()), 2) + 
 				          Math.pow((player.getDefRebounds() - centroid.getDefRebounds()), 2)));
 	}

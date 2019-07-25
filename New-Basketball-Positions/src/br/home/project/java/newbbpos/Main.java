@@ -4,11 +4,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		KMedoids clusters = new KMedoids("dataset18-19.csv", 13);
+		KMedoids clusters = new KMedoids("dataset18-19.csv", 17);
 		
 		clusters.loadDatabase();
 		clusters.fit();
-		//clusters.generateReport();
+		clusters.generateReport("13-clusters.txt");
 		
 		for (int i = 0; i < clusters.getNumberOfClusters(); i++) {
 			System.out.println("CLUSTER " + (i + 1) + "\n");

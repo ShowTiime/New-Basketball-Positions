@@ -6,8 +6,8 @@ public class Player {
 	private double position;		// [2]
 	private double gamesStarted;	// [6]
 	private double minutesPlayed;	// [7]
-	private double FGPctg;			// [10]
-	private double threeptFGPctg;	// [13]
+	private double twoPointFG;		// [16]
+	private double threePointFG;	// [13]
 	private double points;			// [29]
 	private double offRebounds;		// [21]
 	private double defRebounds;		// [22]
@@ -83,20 +83,20 @@ public class Player {
 		this.minutesPlayed = minutesPlayed;
 	}
 
-	public double getFGPctg() {
-		return FGPctg;
+	public double getTwoPointFG() {
+		return twoPointFG;
 	}
 
-	public void setFGPctg(double fGPctg) {
-		FGPctg = fGPctg;
+	public void setTwoPointFG(double twoPointFG) {
+		this.twoPointFG = twoPointFG;
 	}
 
-	public double getThreeptFGPctg() {
-		return threeptFGPctg;
+	public double getThreePointFG() {
+		return threePointFG;
 	}
 
-	public void setThreeptFGPctg(double threeptFGPctg) {
-		this.threeptFGPctg = threeptFGPctg;
+	public void setThreePointFG(double threeptFGPctg) {
+		this.threePointFG = threeptFGPctg;
 	}
 
 	public double getOffRebounds() {
@@ -118,7 +118,7 @@ public class Player {
 	@Override
 	public String toString() {
 		return "Player [name=" + name + ", position=" + position + ", gamesStarted=" + gamesStarted + ", minutesPlayed="
-				+ minutesPlayed + ", FGPctg=" + FGPctg + ", threeptFGPctg=" + threeptFGPctg + ", points=" + points
+				+ minutesPlayed + ", FGPctg=" + twoPointFG + ", threeptFGPctg=" + threePointFG + ", points=" + points
 				+ ", offRebounds=" + offRebounds + ", defRebounds=" + defRebounds + ", assists=" + assists + ", blocks="
 				+ blocks + ", steals=" + steals + "]";
 	}
